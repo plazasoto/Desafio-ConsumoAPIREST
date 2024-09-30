@@ -2,6 +2,10 @@
     <div v-for="(usuario,i) in usuarios" :key="i">
         <img :src="usuario.picture.large">
         <h3>{{usuario.name.first+" "+usuario.name.last}}</h3>
+
+        <input type="color" name="" id="">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button>Enviar</button>
     </div>
 </template>
 
@@ -26,3 +30,12 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  div *{
+    display: block;
+  }
+  div{
+    display: inline-block;
+  }
+</style>
