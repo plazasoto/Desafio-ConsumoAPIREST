@@ -1,8 +1,10 @@
 <template>
-  <div id="app">
-    <UserView />
-    <ChatView />
-    <UserView />
+  <div id="app" class="container">
+    <div class="row">
+      <UserView />
+      <ChatView />
+      <UserView />
+    </div>
   </div>
 </template>
 
