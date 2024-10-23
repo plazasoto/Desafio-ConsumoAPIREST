@@ -1,11 +1,13 @@
 <template>
     <div v-for="(usuario,i) in usuarios" :key="i" class="col-3">
+      <!-- <h2>{{ lado }}</h2> -->
         <img :src="usuario.picture.large">
         <h3>{{usuario.name.first+" "+usuario.name.last}}</h3>
-
-        <input type="color" name="" id="">
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-        <button>Enviar</button>
+        <form @submit.prevent="enviarMensaje(usuario.name.first+' '+usuario.name.last)">
+          <input type="color" name="" id="" v-model="mensaje.color">
+          <textarea name="" id="" cols="30" rows="10" v-model="mensaje.texto"></textarea>
+          <button>Enviar</button>
+        </form>
     </div>
 </template>
 
@@ -13,18 +15,46 @@
 import axios from 'axios';
 
 export default {
-    data(){
+  data(){
     return {
-      usuarios: []
+      usuarios: [],
+      mensaje:{
+        usuario:"",
+        texto:"",
+        color:"#"+ Math.floor(100 + Math.random()*155).toString(16)+ Math.floor(100 + Math.random()*155).toString(16)+ Math.floor(100 + Math.random()*155).toString(16),
+        //lado:"",
+      }
     }
   },
+
+  props:{
+    lado: String,
+  },
+
   methods:{
     async fetchUser(){
         const url = "https://randomuser.me/api";
         const { data } = await axios.get(url);
         this.usuarios = data.results
+    },
+
+    enviarMensaje(nombre){
+      if(this.mensaje.texto!=""){
+        //datos a emitir
+        /* console.log(nombre);
+        console.log(this.mensaje.color);
+        console.log(this.mensaje.texto); */
+
+        this.mensaje.usuario = nombre;
+        this.$emit('mensaje-enviado', structuredClone(this.mensaje));
+
+        //console.log(structuredClone(this.mensaje));
+
+        this.mensaje.texto = "";
+      }
     }
   },
+
   async mounted() {
     await this.fetchUser();
   },
@@ -34,8 +64,5 @@ export default {
 <style scoped>
   div *{
     display: block;
-  }/*
-  div{
-    display: inline-block;
-  }*/
+  }
 </style>
