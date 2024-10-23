@@ -2,7 +2,7 @@
   <div id="app" class="container">
     <div class="row">
       <UserView @mensaje-enviado="registrarMensajeIzquierda"/>
-      <ChatView mensajes=""/>
+      <ChatView :mensajes="mensajesRegistrados"/>
       <UserView @mensaje-enviado="registrarMensajeDerecha" />
     </div>
   </div>
@@ -19,10 +19,17 @@ export default {
     ChatView
   },
 
+  data(){
+    return{
+      mensajesRegistrados: [],
+    }
+  },
+
   methods:{
     registrarMensaje(mensajeRecibido, lado){
       //enviar a ChatView
       console.log(mensajeRecibido, lado);
+      this.mensajesRegistrados.push(mensajeRecibido);
     },
 
     registrarMensajeIzquierda(mensajeRecibido){
