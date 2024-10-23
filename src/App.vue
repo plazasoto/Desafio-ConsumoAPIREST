@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="container">
     <div class="row">
-      <UserView />
-      <ChatView />
-      <UserView />
+      <UserView @mensaje-enviado="registrarMensajeIzquierda"/>
+      <ChatView mensajes=""/>
+      <UserView @mensaje-enviado="registrarMensajeDerecha" />
     </div>
   </div>
 </template>
@@ -17,17 +17,25 @@ export default {
   components: {
     UserView,
     ChatView
+  },
+
+  methods:{
+    registrarMensaje(mensajeRecibido, lado){
+      //enviar a ChatView
+      console.log(mensajeRecibido, lado);
+    },
+
+    registrarMensajeIzquierda(mensajeRecibido){
+      this.registrarMensaje(mensajeRecibido, 'left');
+    },
+
+    registrarMensajeDerecha(mensajeRecibido){
+      this.registrarMensaje(mensajeRecibido, 'right');
+    },
   }
 }
 </script>
 
 <style>
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
+
 </style>
