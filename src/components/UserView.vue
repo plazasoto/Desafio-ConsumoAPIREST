@@ -1,10 +1,12 @@
 <template>
-    <div v-for="(usuario,i) in usuarios" :key="i" class="col-3">
+    <div v-for="(usuario,i) in usuarios" :key="i" >
       <img :src="usuario.picture.large">
       <h3>{{usuario.name.first+" "+usuario.name.last}}</h3>
       <form @submit.prevent="enviarMensaje(usuario.name.first+' '+usuario.name.last)">
         <input type="color" name="" id="" v-model="mensaje.color">
-        <textarea name="" id="" cols="30" rows="10" v-model="mensaje.texto"></textarea>
+        <textarea name="" id="" cols="30" rows="10" 
+        v-model="mensaje.texto" 
+        @keyup.enter="enviarMensaje(usuario.name.first+' '+usuario.name.last)"></textarea>
         <button>Enviar</button>
       </form>
     </div>
@@ -20,6 +22,7 @@ export default {
       mensaje:{
         usuario:"",
         texto:"",
+        //color inicial aleatorio
         color:"#"+ Math.floor(100 + Math.random()*155).toString(16)+ Math.floor(100 + Math.random()*155).toString(16)+ Math.floor(100 + Math.random()*155).toString(16),
       }
     }
